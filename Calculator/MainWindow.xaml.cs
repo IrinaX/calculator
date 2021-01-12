@@ -20,6 +20,9 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
+        double value = 0;
+        string operation = "";
+        bool operation_pressed = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -31,10 +34,46 @@ namespace Calculator
 
         }
 
-      
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            if ((result.Text == "0") || (operation_pressed))
+            {
+                result.Clear();
+                operation_pressed = false;
+            }
+            Button b = (Button)sender;
+            result.Text += b.Content;
+        }
+        
+        private void Button_Clear(object sender, RoutedEventArgs e)
+        {
+            result.Text = "0";
+        }
+        private void Button_Operation(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+            operation = (string)b.Content;
+            value = Double.Parse(result.Text);
+            operation_pressed = true;
+        }
+        private void Button_Equal(object sender, RoutedEventArgs e)
+        {
+            switch (operation)
+            {
+                case "+":
+                        result.Text = (value + Double.Parse(result.Text)).ToString();
+                    break;
+                case "-":
+                    result.Text = (value - Double.Parse(result.Text)).ToString();
+                    break;
+                case "/":
+                    result.Text = (value / Double.Parse(result.Text)).ToString();
+                    break;
+                case "*":
+                    result.Text = (value * Double.Parse(result.Text)).ToString();
+                    break;
+            }
+            operation_pressed = false;
         }
     }
 }

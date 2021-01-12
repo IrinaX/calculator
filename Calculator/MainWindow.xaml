@@ -108,7 +108,7 @@
         <!--<TextBlock></TextBlock>
         Focusable="False"
         -->
-        <TextBox Grid.Row="0" 
+        <TextBox Grid.Row="0" Name="result"
                 TextAlignment="Right" FontWeight="Bold" Background="#1E1E1E" Margin="0 30 5 30"
                      Foreground="#fff" BorderThickness="0" TextWrapping="Wrap" 
                      Text="0" VerticalAlignment="Top" TextChanged="TextBox_TextChanged" 
@@ -141,22 +141,22 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="0" Grid.Row="0" Content="7"/>
-            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="1" Grid.Row="0" Content="8"/>
-            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="2" Grid.Row="0" Content="9"/>
-            <Button Style="{StaticResource OperationBtn}" Grid.Column="3" Grid.Row="0" Content="/"/>
-            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="0" Grid.Row="1" Content="4"/>
-            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="1" Grid.Row="1" Content="5"/>
-            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="2" Grid.Row="1" Content="6"/>
-            <Button Style="{StaticResource OperationBtn}" Grid.Column="3" Grid.Row="1" Content="*"/>
-            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="0" Grid.Row="2" Content="1"/>
-            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="1" Grid.Row="2" Content="2"/>
-            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="2" Grid.Row="2" Content="3"/>
-            <Button Style="{StaticResource OperationBtn}" Grid.Column="3" Grid.Row="2" Content="-"/>
-            <Button Style="{StaticResource OperationBtn}" Grid.Column="0" Grid.Row="3" Content="C"/>
-            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="1" Grid.Row="3" Content="0" />
-            <Button Style="{StaticResource EqualBtn}" Grid.Column="2" Grid.Row="3" Content="="/>
-            <Button Style="{StaticResource OperationBtn}" Grid.Column="3" Grid.Row="3" Content="+"/>
+            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="0" Grid.Row="0" Content="7" Click="Button_Click"/>
+            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="1" Grid.Row="0" Content="8" Click="Button_Click"/>
+            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="2" Grid.Row="0" Content="9" Click="Button_Click"/>
+            <Button Style="{StaticResource OperationBtn}" Grid.Column="3" Grid.Row="0" Content="/" Click="Button_Operation"/>
+            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="0" Grid.Row="1" Content="4" Click="Button_Click"/>
+            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="1" Grid.Row="1" Content="5" Click="Button_Click"/>
+            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="2" Grid.Row="1" Content="6" Click="Button_Click"/>
+            <Button Style="{StaticResource OperationBtn}" Grid.Column="3" Grid.Row="1" Content="*" Click="Button_Operation"/>
+            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="0" Grid.Row="2" Content="1" Click="Button_Click"/>
+            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="1" Grid.Row="2" Content="2" Click="Button_Click"/>
+            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="2" Grid.Row="2" Content="3" Click="Button_Click"/>
+            <Button Style="{StaticResource OperationBtn}" Grid.Column="3" Grid.Row="2" Content="-" Click="Button_Operation"/>
+            <Button Style="{StaticResource OperationBtn}" Grid.Column="0" Grid.Row="3" Content="C" Click="Button_Clear"/>
+            <Button Style="{StaticResource PrimaryBtn}" Grid.Column="1" Grid.Row="3" Content="0" Click="Button_Click"/>
+            <Button Style="{StaticResource EqualBtn}" Grid.Column="2" Grid.Row="3" Content="=" Click="Button_Equal"/>
+            <Button Style="{StaticResource OperationBtn}" Grid.Column="3" Grid.Row="3" Content="+" Click="Button_Operation"/>
         </Grid>
     </Grid>
 </Window>
