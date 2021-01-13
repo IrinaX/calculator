@@ -20,60 +20,80 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
-        double value = 0;
-        string operation = "";
-        bool operation_pressed = false;
-        public MainWindow()
+        private bool operationBtnPressed = false;
+        private double savedValue = 0;
+        //private double pastValue = 0;
+        private int operationBtnCounter = 0;//фиксит баг с операциями: когда тыкаешь на разные операции это влияет на рез-т
+        private string operation = string.Empty;
+
+        private void btn_Click(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-        }
-
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if ((result.Text == "0") || (operation_pressed))
+            Button btn = sender as Button;
+            if (textResult.Text == "0" || operationBtnPressed)
             {
-                result.Clear();
-                operation_pressed = false;
+                textResult.Text = btn.Content.ToString();
+                operationBtnPressed = false;
             }
-            Button b = (Button)sender;
-            result.Text += b.Content;
-        }
-        
-        private void Button_Clear(object sender, RoutedEventArgs e)
-        {
-            result.Text = "0";
-        }
-        private void Button_Operation(object sender, RoutedEventArgs e)
-        {
-            Button b = (Button)sender;
-            operation = (string)b.Content;
-            value = Double.Parse(result.Text);
-            operation_pressed = true;
-        }
-        private void Button_Equal(object sender, RoutedEventArgs e)
-        {
-            switch (operation)
+            else
             {
-                case "+":
-                        result.Text = (value + Double.Parse(result.Text)).ToString();
-                    break;
-                case "-":
-                    result.Text = (value - Double.Parse(result.Text)).ToString();
-                    break;
-                case "/":
-                    result.Text = (value / Double.Parse(result.Text)).ToString();
-                    break;
-                case "*":
-                    result.Text = (value * Double.Parse(result.Text)).ToString();
-                    break;
+                textResult.Text += btn.Content.ToString();
             }
-            operation_pressed = false;
+            operationBtnCounter = 0;
+        }
+
+        private void operation_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            operationBtnCounter++;
+            if (operationBtnCounter < 2)
+            {
+                calc();
+            }
+            operation = btn.Content.ToString();//last btn pressed sign
+            savedValue = Double.Parse(textResult.Text);
+            operationBtnPressed = true;
+        }
+
+        public void calc()
+        {
+            if (savedValue != 0)
+            {
+                switch (operation)
+                {
+                    case "+":
+                        textResult.Text = (savedValue + Double.Parse(textResult.Text)).ToString();
+                        break;
+                    case "-":
+                        textResult.Text = (savedValue - Double.Parse(textResult.Text)).ToString();
+                        break;
+                    case "*":
+                        textResult.Text = (savedValue * Double.Parse(textResult.Text)).ToString();
+                        break;
+                    case "/":
+                        textResult.Text = (savedValue / Double.Parse(textResult.Text)).ToString();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        private void btnEqual_Click(object sender, RoutedEventArgs e)
+        {
+            //pastValue = Double.Parse(textResult.Text);
+            calc();
+            savedValue = 0;
+            operationBtnPressed = false;
+            operationBtnCounter = 0;
+        }
+
+        private void btnC_Click(object sender, RoutedEventArgs e)
+        {
+            textResult.Text = "0";
+            savedValue = 0;
+            //pastValue = 0;
+            operationBtnPressed = false;
+            operationBtnCounter = 0;
+            operation = string.Empty;
         }
     }
 }
