@@ -25,6 +25,8 @@ namespace Calculator
         //private double pastValue = 0;
         private int operationBtnCounter = 0;//фиксит баг с операциями: когда тыкаешь на разные операции это влияет на рез-т
         private string operation = string.Empty;
+        private int equalBtnCounter = 0;
+        private double lastNumberBtnClicked;
 
         private void btn_Click(object sender, RoutedEventArgs e)
         {
@@ -38,20 +40,23 @@ namespace Calculator
             {
                 textResult.Text += btn.Content.ToString();
             }
+            lastNumberBtnClicked = Double.Parse(textResult.Text);
             operationBtnCounter = 0;
+            equalBtnCounter = 0;
         }
 
         private void operation_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
             operationBtnCounter++;
-            if (operationBtnCounter < 2)
+            if (operationBtnCounter < 2 && equalBtnCounter < 2)
             {
                 calc();
             }
             operation = btn.Content.ToString();//last btn pressed sign
             savedValue = Double.Parse(textResult.Text);
             operationBtnPressed = true;
+            equalBtnCounter = 0;
         }
 
         public void calc()
@@ -77,11 +82,42 @@ namespace Calculator
                 }
             }
         }
+        public void calcAlternative(double firstVal, double secVal)
+        {
+            switch (operation)
+            {
+                case "+":
+                    textResult.Text = (firstVal + secVal).ToString();
+                    break;
+                case "-":
+                    textResult.Text = (firstVal - secVal).ToString();
+                    break;
+                case "*":
+                    textResult.Text = (firstVal * secVal).ToString();
+                    break;
+                case "/":
+                    textResult.Text = (firstVal / secVal).ToString();
+                    break;
+                default:
+                    break;
+            }
+        }
         private void btnEqual_Click(object sender, RoutedEventArgs e)
         {
             //pastValue = Double.Parse(textResult.Text);
-            calc();
-            savedValue = 0;
+            equalBtnCounter++;
+            if (equalBtnCounter < 2)
+            {
+                calc();
+                savedValue = 0;
+            }
+            else
+            {
+                savedValue = lastNumberBtnClicked;
+                calcAlternative(Double.Parse(textResult.Text), lastNumberBtnClicked);
+
+            }
+
             operationBtnPressed = false;
             operationBtnCounter = 0;
         }
@@ -93,6 +129,7 @@ namespace Calculator
             //pastValue = 0;
             operationBtnPressed = false;
             operationBtnCounter = 0;
+            equalBtnCounter = 0;
             operation = string.Empty;
         }
     }
