@@ -13,3 +13,4 @@ D:\notWIN\university3\1\Технология разработки прогр. о
 D:\notWIN\university3\1\Технология разработки прогр. обесп\Calculator\Calculator\obj\Debug\Calculator.csproj.CoreCompileInputs.cache
 D:\notWIN\university3\1\Технология разработки прогр. обесп\Calculator\Calculator\obj\Debug\Calculator.exe
 D:\notWIN\university3\1\Технология разработки прогр. обесп\Calculator\Calculator\obj\Debug\Calculator.pdb
+D:\notWIN\university3\1\Технология разработки прогр. обесп\Calculator\Calculator\obj\Debug\GeneratedInternalTypeHelper.g.cs
