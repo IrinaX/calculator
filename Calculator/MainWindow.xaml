@@ -35,7 +35,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="OperationBtn" TargetType="{x:Type Button}">
+        <Style x:Key="SecondaryBtn" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#131313"/>
             <Setter Property="Foreground" Value="#fff"/>
             <Setter Property="FontSize" Value="20"/>
@@ -57,7 +57,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="EqualBtn" TargetType="{x:Type Button}">
+        <Style x:Key="ExtraBtn" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#A37424"/>
             <Setter Property="Foreground" Value="#fff"/>
             <Setter Property="FontSize" Value="20"/>
@@ -117,13 +117,39 @@
             <StackPanel Grid.Row="0" VerticalAlignment="Top">
                 <TextBlock  Foreground="#fff" HorizontalAlignment="Center" FontSize="20">Память</TextBlock>
             </StackPanel>
-            <ListBox Grid.Row="1" ItemsSource="{Binding MemoryList}" FontSize="15" Background="Transparent" BorderThickness="0" VerticalAlignment="Stretch">
+            <ListBox Grid.Row="1" ItemsSource="{Binding MemoryList}" FontSize="15" Background="Transparent" BorderThickness="0" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type local:SavedComponent}">
                         <StackPanel>
-                            <Button Content="{Binding ComponentValue}"/>
-                            <!-- CommandParameter="{Binding}" по дефолту биндит дата контекст кнопки. Т.е. значение кнопки -->
+                            <Button 
+                                    Style="{StaticResource SecondaryBtn}" 
+                                    VerticalAlignment="Center" 
+                                    HorizontalAlignment="Stretch" 
+                                    Content="{Binding ComponentValue}" 
+                                    Command="{Binding DataContext.ComponentBtnClickCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                    CommandParameter="{Binding ComponentValue}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button Style="{StaticResource ExtraBtn}" FontWeight="Light" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                        Content="MC" 
+                                        Command="{Binding DataContext.ComponentBtnMemoryClearClickCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                        CommandParameter="{Binding}"/>
+                                <Button Style="{StaticResource ExtraBtn}" FontWeight="Light" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                        Content="M+" 
+                                        Command="{Binding DataContext.ComponentBtnMemoryPlusClickCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                        CommandParameter="{Binding}"/>
+                                <Button Style="{StaticResource ExtraBtn}" FontWeight="Light" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                        Content="M-" 
+                                        Command="{Binding DataContext.ComponentBtnMemoryMinusClickCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                        CommandParameter="{Binding}"/>
+                                <!-- по дефолту биндит дата контекст кнопки. Т.е. значение кнопки-->
+                            </Grid>
                         </StackPanel>
+
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -173,25 +199,26 @@
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding NumClickCommand}" CommandParameter="7" Grid.Column="0" Grid.Row="0" Content="7" Name="btn7"/>
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding NumClickCommand}" CommandParameter="8" Grid.Column="1" Grid.Row="0" Content="8" Name="btn8"/>
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding NumClickCommand}" CommandParameter="9" Grid.Column="2" Grid.Row="0" Content="9" Name="btn9"/>
-                <Button Style="{StaticResource OperationBtn}" Command="{Binding OperationClickCommand}" CommandParameter="/" Grid.Column="3" Grid.Row="0" Content="/" Name="btnDivide"/>
+                <Button Style="{StaticResource SecondaryBtn}" Command="{Binding OperationClickCommand}" CommandParameter="/" Grid.Column="3" Grid.Row="0" Content="/" Name="btnDivide"/>
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding NumClickCommand}" CommandParameter="4" Grid.Column="0" Grid.Row="1" Content="4" Name="btn4"/>
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding NumClickCommand}" CommandParameter="5" Grid.Column="1" Grid.Row="1" Content="5" Name="btn5"/>
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding NumClickCommand}" CommandParameter="6" Grid.Column="2" Grid.Row="1" Content="6" Name="btn6"/>
-                <Button Style="{StaticResource OperationBtn}" Command="{Binding OperationClickCommand}" CommandParameter="*" Grid.Column="3" Grid.Row="1" Content="*" Name="btnTimes"/>
+                <Button Style="{StaticResource SecondaryBtn}" Command="{Binding OperationClickCommand}" CommandParameter="*" Grid.Column="3" Grid.Row="1" Content="*" Name="btnTimes"/>
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding NumClickCommand}" CommandParameter="1" Grid.Column="0" Grid.Row="2" Content="1" Name="btn1"/>
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding NumClickCommand}" CommandParameter="2" Grid.Column="1" Grid.Row="2" Content="2" Name="btn2"/>
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding NumClickCommand}" CommandParameter="3" Grid.Column="2" Grid.Row="2" Content="3" Name="btn3"/>
-                <Button Style="{StaticResource OperationBtn}" Command="{Binding OperationClickCommand}" CommandParameter="-" Grid.Column="3" Grid.Row="2" Content="-" Name="btnMinus"/>
-                <Button Style="{StaticResource OperationBtn}"  Command="{Binding ClearClickCommand}" CommandParameter="C" Grid.Column="0" Grid.Row="3" Content="C" Name="btnC"/>
+                <Button Style="{StaticResource SecondaryBtn}" Command="{Binding OperationClickCommand}" CommandParameter="-" Grid.Column="3" Grid.Row="2" Content="-" Name="btnMinus"/>
+                <Button Style="{StaticResource SecondaryBtn}"  Command="{Binding ClearClickCommand}" CommandParameter="C" Grid.Column="0" Grid.Row="3" Content="C" Name="btnC"/>
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding NumClickCommand}" CommandParameter="0" Grid.Column="1" Grid.Row="3" Content="0" Name="btn0"/>
-                <Button Style="{StaticResource EqualBtn}" Command="{Binding EqualClickCommand}" CommandParameter="=" Grid.Column="2" Grid.Row="3" Content="=" Name="btnEqual"/>
-                <Button Style="{StaticResource OperationBtn}" Command="{Binding OperationClickCommand}" CommandParameter="+" Grid.Column="3" Grid.Row="3" Content="+" Name="btnPlus"/>
+                <Button Style="{StaticResource ExtraBtn}" Command="{Binding EqualClickCommand}" CommandParameter="=" Grid.Column="2" Grid.Row="3" Content="=" Name="btnEqual"/>
+                <Button Style="{StaticResource SecondaryBtn}" Command="{Binding OperationClickCommand}" CommandParameter="+" Grid.Column="3" Grid.Row="3" Content="+" Name="btnPlus"/>
             </Grid>
         </Grid>
         <Grid Grid.Column="2" Margin="0,3,0,3">
             <Grid.RowDefinitions>
                 <RowDefinition Height ="30"/>
                 <RowDefinition/>
+                <RowDefinition Height ="40"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" VerticalAlignment="Top">
                 <TextBlock  Foreground="#fff" HorizontalAlignment="Center" FontSize="20">Журнал</TextBlock>
@@ -200,15 +227,18 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type local:SavedComponent}">
                         <Button 
-                                Style="{StaticResource OperationBtn}" 
+                                Style="{StaticResource SecondaryBtn}" 
                                     VerticalAlignment="Center" 
                                     HorizontalAlignment="Stretch" 
                                     Content="{Binding ComponentValue}" 
-                                    Command="{Binding DataContext.HistoryBtnClickCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" 
-                                    CommandParameter="{Binding ComponentValue}"/>  <!-- по дефолту биндит дата контекст кнопки. Т.е. значение кнопки-->
+                                    Command="{Binding DataContext.ComponentBtnClickCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                    CommandParameter="{Binding ComponentValue}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <Button Grid.Row="2" Style="{StaticResource SecondaryBtn}" FontSize="16" FontWeight="Light"
+                    Command="{Binding HistoryClearClickCommand}" 
+                    CommandParameter="ClearHistoryList" Content="Очистить" Name="btnClearHistory"/>
         </Grid>
     </Grid>
 </Window>

@@ -49,8 +49,14 @@ namespace Calculator
         public ObservableCollection<SavedComponent> HistoryList { get; set; }
         public ObservableCollection<SavedComponent> MemoryList { get; set; }
         #endregion
-        #region BtnIsideHistoryListProp
-        public RelayCommand HistoryBtnClickCommand { get; set; }
+        #region BtnsIsideListProps
+        public RelayCommand ComponentBtnClickCommand { get; set; }
+        public RelayCommand ComponentBtnMemoryClearClickCommand { get; set; }
+        public RelayCommand ComponentBtnMemoryPlusClickCommand { get; set; }
+        public RelayCommand ComponentBtnMemoryMinusClickCommand { get; set; }
+        #endregion
+        #region ClearHistoryBtnProp
+        public RelayCommand HistoryClearClickCommand { get; set; }
         #endregion
         #region MemoryProps
         public RelayCommand MemoryClearClickCommand { get; set; }
@@ -62,7 +68,7 @@ namespace Calculator
 
         public ViewModel()//конструктор класса ViewModel
         {
-            TextResult = "0";
+            TextResult = "0"; //изначальное состояние тектового поля
             #region CalculatorCommands
             NumClickCommand = new RelayCommand(NumBtnClick);// экземпляр класса RelayCommand(т.е объект) с параметром NumBtnClick 
             /*
@@ -77,8 +83,14 @@ namespace Calculator
             HistoryList = new ObservableCollection<SavedComponent>();
             MemoryList = new ObservableCollection<SavedComponent>();
             #endregion
-            #region BtnIsideHistoryListCommand
-            HistoryBtnClickCommand = new RelayCommand(HistoryBtnClick);
+            #region BtnsIsideListCommands
+            ComponentBtnClickCommand = new RelayCommand(ComponentBtnClick);
+            ComponentBtnMemoryClearClickCommand = new RelayCommand(ComponentBtnMemoryClear);
+            ComponentBtnMemoryPlusClickCommand = new RelayCommand(ComponentBtnMemoryPlus);
+            ComponentBtnMemoryMinusClickCommand = new RelayCommand(ComponentBtnMemoryMinus);
+            #endregion
+            #region ClearHistoryBtnCommand
+            HistoryClearClickCommand = new RelayCommand(HistoryClearClick);
             #endregion
             #region MemoryCommands
             MemoryClearClickCommand = new RelayCommand(MemoryClear);
@@ -180,12 +192,36 @@ namespace Calculator
             lastNumberBtnClicked = 0;
         }
         #endregion
-        #region BtnInsideHistoryListMethod
-        private void HistoryBtnClick(object btnContent)
+        #region BtnsInsideListMethods
+        private void ComponentBtnClick(object btnContent)
         {
             TextResult = Convert.ToString(btnContent);
         }
+        private void ComponentBtnMemoryClear(object component)
+        {
+            MemoryList.Remove((SavedComponent)component);
+        }
+        private void ComponentBtnMemoryPlus(object component)
+        {
+            int index = MemoryList.IndexOf((SavedComponent)component);
+            double componentValue = Double.Parse(MemoryList[index].ComponentValue) + lastNumberBtnClicked;
+
+            MemoryList.RemoveAt(index);
+            MemoryList.Insert(index, new SavedComponent(Convert.ToString(componentValue)));
+        }
+        private void ComponentBtnMemoryMinus(object component)
+        {
+            int index = MemoryList.IndexOf((SavedComponent)component);
+            double componentValue = Double.Parse(MemoryList[index].ComponentValue) - lastNumberBtnClicked;
+
+            MemoryList.RemoveAt(index);
+            MemoryList.Insert(index, new SavedComponent(Convert.ToString(componentValue)));
+        }
         #endregion
+        private void HistoryClearClick(object obj)
+        {
+            HistoryList.Clear();
+        }
         #region MemoryMethods
         private void MemoryClear(object obj)
         {
@@ -194,7 +230,7 @@ namespace Calculator
 
         private void MemoryReturn(object obj)
         {
-            if(MemoryList.Count != 0)
+            if (MemoryList.Count != 0)
             {
                 TextResult = MemoryList[0].ComponentValue;
             }
@@ -205,7 +241,7 @@ namespace Calculator
             if (MemoryList.Count != 0)
             {
                 double componentValue = Double.Parse(MemoryList[0].ComponentValue) + lastNumberBtnClicked;
-                
+
                 MemoryList.RemoveAt(0);
                 MemoryList.Insert(0, new SavedComponent(Convert.ToString(componentValue)));
             }
@@ -228,5 +264,4 @@ namespace Calculator
         }
         #endregion
     }
-
 }
