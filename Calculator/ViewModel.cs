@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace Calculator
 {
-    class ViewModel : INotifyPropertyChanged
+    public class ViewModel : INotifyPropertyChanged
     {
         #region CalculatorVariables
         private bool operationBtnPressed = false;
@@ -68,7 +68,7 @@ namespace Calculator
 
         public ViewModel()//конструктор класса ViewModel
         {
-            TextResult = "0"; //изначальное состояние тектового поля
+            TextResult = "0"; //изначальное состояние текстового поля
             #region CalculatorCommands
             NumClickCommand = new RelayCommand(NumBtnClick);// экземпляр класса RelayCommand(т.е объект) с параметром NumBtnClick 
             /*
@@ -103,7 +103,7 @@ namespace Calculator
 
         #region CalculatorMethods
         // в (object parameter) передается содержимое CommandParameter из xaml
-        private void NumBtnClick(object parameter)//метод вызывается при клике на кнопки с номерами
+        public void NumBtnClick(object parameter)//метод вызывается при клике на кнопки с номерами
         {
             string btnContent = Convert.ToString(parameter);
 
@@ -121,7 +121,7 @@ namespace Calculator
             equalBtnCounter = 0;
         }
 
-        private void OperationBtnClick(object parameter)//метод вызывается при клике на кнопки с арифм. действиями
+        public void OperationBtnClick(object parameter)//метод вызывается при клике на кнопки с арифм. действиями
         {
             string btnContent = Convert.ToString(parameter);
             operationBtnCounter++;
@@ -138,7 +138,7 @@ namespace Calculator
             equalBtnCounter = 0;
         }
 
-        private void EqualBtnClick(object parameter)//метод вызывается при клике на кнопку =
+        public void EqualBtnClick(object parameter)//метод вызывается при клике на кнопку =
         {
             equalBtnCounter++;
             if (equalBtnCounter < 2)
@@ -160,7 +160,7 @@ namespace Calculator
             operationBtnCounter = 0;
         }
 
-        private void Calc(double firstVal, double secVal)//здесь производятся вычисления
+        public void Calc(double firstVal, double secVal)//здесь производятся вычисления
         {
             switch (operation)
             {
@@ -181,7 +181,7 @@ namespace Calculator
             }
         }
 
-        private void ClearBtnClick(object parameter) //метод приводит все созданные переменные в изначальное состояние, вызывается при клике на кнопку Clear
+        public void ClearBtnClick(object parameter) //метод приводит все созданные переменные в изначальное состояние, вызывается при клике на кнопку Clear
         {
             TextResult = "0";
             operationBtnPressed = false;
@@ -193,15 +193,15 @@ namespace Calculator
         }
         #endregion
         #region BtnsInsideListMethods
-        private void ComponentBtnClick(object btnContent)
+        public void ComponentBtnClick(object btnContent)
         {
             TextResult = Convert.ToString(btnContent);
         }
-        private void ComponentBtnMemoryClear(object component)
+        public void ComponentBtnMemoryClear(object component)
         {
             MemoryList.Remove((SavedComponent)component);
         }
-        private void ComponentBtnMemoryPlus(object component)
+        public void ComponentBtnMemoryPlus(object component)
         {
             int index = MemoryList.IndexOf((SavedComponent)component);
             double componentValue = Double.Parse(MemoryList[index].ComponentValue) + lastNumberBtnClicked;
@@ -209,7 +209,7 @@ namespace Calculator
             MemoryList.RemoveAt(index);
             MemoryList.Insert(index, new SavedComponent(Convert.ToString(componentValue)));
         }
-        private void ComponentBtnMemoryMinus(object component)
+        public void ComponentBtnMemoryMinus(object component)
         {
             int index = MemoryList.IndexOf((SavedComponent)component);
             double componentValue = Double.Parse(MemoryList[index].ComponentValue) - lastNumberBtnClicked;
@@ -218,17 +218,19 @@ namespace Calculator
             MemoryList.Insert(index, new SavedComponent(Convert.ToString(componentValue)));
         }
         #endregion
-        private void HistoryClearClick(object obj)
+        #region ClearHistoryBtnMethod
+        public void HistoryClearClick(object obj)
         {
             HistoryList.Clear();
         }
+        #endregion
         #region MemoryMethods
-        private void MemoryClear(object obj)
+        public void MemoryClear(object obj)
         {
             MemoryList.Clear();
         }
 
-        private void MemoryReturn(object obj)
+        public void MemoryReturn(object obj)
         {
             if (MemoryList.Count != 0)
             {
@@ -236,7 +238,7 @@ namespace Calculator
             }
         }
 
-        private void MemoryPlus(object obj)
+        public void MemoryPlus(object obj)
         {
             if (MemoryList.Count != 0)
             {
@@ -247,7 +249,7 @@ namespace Calculator
             }
         }
 
-        private void MemoryMinus(object obj)
+        public void MemoryMinus(object obj)
         {
             if (MemoryList.Count != 0)
             {
@@ -258,7 +260,7 @@ namespace Calculator
             }
         }
 
-        private void MemorySave(object obj)
+        public void MemorySave(object obj)
         {
             MemoryList.Insert(0, new SavedComponent(TextResult));//добавление компонента в память
         }

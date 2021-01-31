@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    class SavedComponent
+    public class SavedComponent//класс для объектов в списках
     {
-        public SavedComponent(string currTextResultValue)
+        public SavedComponent(string currTextResultValue)//конструктор
         {
             ComponentValue = currTextResultValue;
         }

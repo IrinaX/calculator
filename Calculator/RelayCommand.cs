@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Calculator
 {
-    class RelayCommand : ICommand //вместо событий клик, в mvvm используют команды.
+    public class RelayCommand : ICommand //вместо событий клик, в mvvm используют команды.
     {
         public event EventHandler CanExecuteChanged; // вызывается при изменении условий, указывающий, может ли команда выполняться.
         Action<object> _executeMethod;

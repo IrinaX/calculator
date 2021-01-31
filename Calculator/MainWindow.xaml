@@ -160,9 +160,6 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <!--<TextBlock></TextBlock>
-        Focusable="False"
-        -->
             <TextBlock Grid.Row="0" Name="textResult"
                 TextAlignment="Right" FontWeight="Bold" Background="#1E1E1E" Margin="0 30 5 30"
                      Foreground="#fff" TextWrapping="Wrap" 
@@ -208,7 +205,7 @@
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding NumClickCommand}" CommandParameter="2" Grid.Column="1" Grid.Row="2" Content="2" Name="btn2"/>
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding NumClickCommand}" CommandParameter="3" Grid.Column="2" Grid.Row="2" Content="3" Name="btn3"/>
                 <Button Style="{StaticResource SecondaryBtn}" Command="{Binding OperationClickCommand}" CommandParameter="-" Grid.Column="3" Grid.Row="2" Content="-" Name="btnMinus"/>
-                <Button Style="{StaticResource SecondaryBtn}"  Command="{Binding ClearClickCommand}" CommandParameter="C" Grid.Column="0" Grid.Row="3" Content="C" Name="btnC"/>
+                <Button Style="{StaticResource SecondaryBtn}" Command="{Binding ClearClickCommand}" CommandParameter="C" Grid.Column="0" Grid.Row="3" Content="C" Name="btnC"/>
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding NumClickCommand}" CommandParameter="0" Grid.Column="1" Grid.Row="3" Content="0" Name="btn0"/>
                 <Button Style="{StaticResource ExtraBtn}" Command="{Binding EqualClickCommand}" CommandParameter="=" Grid.Column="2" Grid.Row="3" Content="=" Name="btnEqual"/>
                 <Button Style="{StaticResource SecondaryBtn}" Command="{Binding OperationClickCommand}" CommandParameter="+" Grid.Column="3" Grid.Row="3" Content="+" Name="btnPlus"/>
@@ -241,4 +238,22 @@
                     CommandParameter="ClearHistoryList" Content="Очистить" Name="btnClearHistory"/>
         </Grid>
     </Grid>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding NumClickCommand}" CommandParameter="0" Key="NumPad0"/>
+        <KeyBinding Command="{Binding NumClickCommand}" CommandParameter="1" Key="NumPad1"/>
+        <KeyBinding Command="{Binding NumClickCommand}" CommandParameter="2" Key="NumPad2"/>
+        <KeyBinding Command="{Binding NumClickCommand}" CommandParameter="3" Key="NumPad3"/>
+        <KeyBinding Command="{Binding NumClickCommand}" CommandParameter="4" Key="NumPad4"/>
+        <KeyBinding Command="{Binding NumClickCommand}" CommandParameter="5" Key="NumPad5"/>
+        <KeyBinding Command="{Binding NumClickCommand}" CommandParameter="6" Key="NumPad6"/>
+        <KeyBinding Command="{Binding NumClickCommand}" CommandParameter="7" Key="NumPad7"/>
+        <KeyBinding Command="{Binding NumClickCommand}" CommandParameter="8" Key="NumPad8"/>
+        <KeyBinding Command="{Binding NumClickCommand}" CommandParameter="9" Key="NumPad9"/>
+        <KeyBinding Command="{Binding OperationClickCommand}" CommandParameter="/" Key="Divide"/>
+        <KeyBinding Command="{Binding OperationClickCommand}" CommandParameter="*" Key="Multiply"/>
+        <KeyBinding Command="{Binding OperationClickCommand}" CommandParameter="-" Key="Subtract"/>
+        <KeyBinding Command="{Binding OperationClickCommand}" CommandParameter="+" Key="Add"/>
+        <KeyBinding Command="{Binding EqualClickCommand}" CommandParameter="=" Key="Return"/>
+        <KeyBinding Command="{Binding ClearClickCommand}" CommandParameter="C" Key="Backspace"/>
+    </Window.InputBindings>
 </Window>
